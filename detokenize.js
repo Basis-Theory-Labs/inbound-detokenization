@@ -13,7 +13,10 @@ module.exports = async function (req) {
         return {
             body: {
                 ...body,
-                ssn: token.data
+                json: {
+                    ...json,
+                    ssn: token.data
+                }
             },
             headers,
         };
