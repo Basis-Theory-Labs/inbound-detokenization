@@ -17,9 +17,15 @@ provider "basistheory" {
 resource "basistheory_application" "proxy_application" {
   name        = "Proxy Application"
   type        = "private"
-  permissions = [
-    "token:read",
-  ]
+  rule {
+    description = "Read Tokens"
+    priority    = 1
+    container   = "/general/"
+    transform   = "reveal"
+    permissions = [
+      "token:read",
+    ]
+  }
 }
 
 resource "basistheory_proxy" "inbound_proxy" {

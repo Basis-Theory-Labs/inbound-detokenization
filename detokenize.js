@@ -12,11 +12,8 @@ module.exports = async function (req) {
         const token = await bt.tokens.retrieve(ssn);
         return {
             body: {
-                ...body,
-                json: {
-                    ...json,
-                    ssn: token.data
-                }
+                ...body, // will contain httpbin response
+                ssn: token.data
             },
             headers,
         };
@@ -25,7 +22,9 @@ module.exports = async function (req) {
             throw new BadRequestError(e);
         }
         return {
-            body,
+            body: {
+                error: e
+            },
             headers,
         };
     }
