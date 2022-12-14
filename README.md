@@ -2,7 +2,7 @@
 
 This repository shows how to accept incoming https requests from any client, forwarding them to a server; and detokenize the token references (id) from the response, passing raw token data to the requester (client).
 
-In this setup, the client wants to query the server for a user's SSN. The server has that data tokenized, so we will transform the server response to detokenize the ssn. To represent the server URL, we will use `https://httpbin.org/anything`, to echo back whatever was passed in the request.
+In this setup, the client wants to query the server for a user's SSN. The server has that data tokenized, so we will transform the server response to detokenize the ssn. To represent the server URL, we will use `https://echo.basistheory.com/anything`, to echo back whatever was passed in the request.
 
 ![Diagram](./inbound_detokenization.jpeg)
 
