@@ -7,23 +7,25 @@ module.exports = async function (req) {
     const { body, headers } = args;
 
     try {
-        const { json } = body; // format returned by httpbin
-        const { ssn } = json; // look for tokens to detokenize
-        const token = await bt.tokens.retrieve(ssn);
+        const { json } = body; // format returned by echo Server
+        const { ssn } = json; // look for the token to detokenize
+        const token = await bt.tokens.retrieve(ssn); // detokenization step
         return {
-            body: {
-                ...body, // will contain httpbin response
-                ssn: token.data
+            body: { // transformed body
+                ssn: token.data, // replace token id with plaintext data
             },
-            headers,
+            headers, // original headers are not altered
         };
     } catch (e) {
         if (typeof e.status === "number") {
+            // if there is a status code in the error
+            // throwing this exception will cause Client to receive a 400
             throw new BadRequestError(e);
         }
+        // otherwise, serialize the error back to the requester
         return {
             body: {
-                error: e
+                error: JSON.stringify(e)
             },
             headers,
         };
