@@ -18,9 +18,9 @@ resource "basistheory_application" "proxy_application" {
   name        = "Proxy Application"
   type        = "private"
   rule {
-    description = "Read Tokens"
+    description = "Read PII Tokens"
     priority    = 1
-    container   = "/general/"
+    container   = "/pii/high/"
     transform   = "reveal"
     permissions = [
       "token:read",
